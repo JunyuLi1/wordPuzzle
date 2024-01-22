@@ -3,7 +3,7 @@
 
 #include <string>
 #include <unordered_map>
-
+#include <vector>
 namespace shindler::ics46::project1 {
 
 /*
@@ -19,7 +19,11 @@ namespace shindler::ics46::project1 {
 bool puzzleSolver(const std::string& addend1, const std::string& addend2,
                   const std::string& sum,
                   std::unordered_map<char, unsigned>& mapping);
-
+bool verifier(const std::string &addend1, const std::string &addend2,const std::string &sum,
+              const std::unordered_map<char, unsigned> &mapping);
+bool puzzletrier(unsigned index, const std::vector<char> &fullunqiueletter, std::vector<bool> &usednumber, 
+                 const std::string &addend1, const std::string &addend2, const std::string &sum,
+                 std::unordered_map<char, unsigned> &mapping);
 }  // namespace shindler::ics46::project1
 
 #endif
