@@ -1,7 +1,7 @@
 #include "puzzleSolver.hpp"
 #include <vector>
 #include <string>
-#include <algorithm>
+#include <unordered_set>
 #include <unordered_map>
 
 namespace shindler::ics46::project1 {
@@ -9,20 +9,24 @@ namespace shindler::ics46::project1 {
 bool puzzleSolver(const std::string& addend1, const std::string& addend2,
                   const std::string& sum,
                   std::unordered_map<char, unsigned>& mapping) {
+    std::unordered_set<char> uniqueChars;
     std::vector<char> fullunqiueletters;
-    for (const auto letter : addend1) {
-        if (std::find(fullunqiueletters.begin(), fullunqiueletters.end(), letter) == fullunqiueletters.end()) {
-            fullunqiueletters.push_back(letter);
-        }
+    std::unordered_set<char> tempchars;
+    tempchars.insert(addend1.back());
+    tempchars.insert(addend2.back());
+    tempchars.insert(sum.back());
+    for(const auto&elem:tempchars)
+    {
+        fullunqiueletters.push_back(elem);
     }
-    for (const auto letter : addend2) {
-        if (std::find(fullunqiueletters.begin(), fullunqiueletters.end(), letter) == fullunqiueletters.end()) {
-            fullunqiueletters.push_back(letter);
-        }
+    for (char letter : addend1 + addend2 + sum) {
+        uniqueChars.insert(letter);
     }
-    for (const auto letter : sum) {
-        if (std::find(fullunqiueletters.begin(), fullunqiueletters.end(), letter) == fullunqiueletters.end()) {
-            fullunqiueletters.push_back(letter);
+    for(const auto&elem:uniqueChars)
+    {
+        if(std::find(fullunqiueletters.begin(), fullunqiueletters.end(), elem) == fullunqiueletters.end())
+        {
+            fullunqiueletters.push_back(elem);
         }
     }
     std::vector<bool> usednumber(10, false);
@@ -35,16 +39,13 @@ bool verifier(const std::string &addend1, const std::string &addend2,const std::
     unsigned addend2num = 0;
     unsigned sumnum = 0;
     for(char character : addend1){
-        addend1num *= 10;
-        addend1num += mapping.at(character);
+        addend1num = addend1num * 10 + mapping.at(character);
     }
     for(char character : addend2){
-        addend2num *= 10;
-        addend2num += mapping.at(character);
+        addend2num = addend2num * 10 + mapping.at(character);
     }
     for(char character : sum){
-        sumnum *= 10;
-        sumnum += mapping.at(character);
+        sumnum = sumnum * 10 + mapping.at(character);
     }
     return (addend1num+addend2num)==sumnum;
 }
@@ -57,6 +58,13 @@ bool puzzletrier(unsigned index, const std::vector<char> &fullunqiueletter, std:
     {
         return verifier(addend1, addend2, sum, mapping);
     }
+    if ((mapping.find(addend1.back()) != mapping.end())&&
+        (mapping.find(addend2.back()) != mapping.end() )&&
+        (mapping.find(sum.back()) != mapping.end()) ) {
+        if ((mapping.at(addend1.back()) + mapping.at(addend2.back())) % 10 != mapping.at(sum.back())) {
+            return false;
+        }
+        }
     for (unsigned i = 0; i < 10; i++)
     {
         if (!usednumber[i])

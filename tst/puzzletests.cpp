@@ -115,4 +115,80 @@ TEST_CASE("Solver:LARRY-CAREER-LEGEND:ExpectNoSolution", "[Required][Solver]") {
     REQUIRE_FALSE(canBeSolved);
 }
 
+TEST_CASE("Solver:SMALL-DOG-PUPPY:ExpectSolution", "[Required][Solver]") {
+    std::unordered_map<char, unsigned> puzzleMapping;
+
+    bool canBeSolved =
+        proj1::puzzleSolver("SMALL", "DOG", "PUPPY", puzzleMapping);
+    CHECK(canBeSolved);
+    REQUIRE(gradeYesAnswer("SMALL", "DOG", "PUPPY", puzzleMapping));
+}
+
+TEST_CASE("Solver:LARRYEE-CAREERNC-LEGENDAE:ExpectNoSolution", "[Required][Solver]") {
+    std::unordered_map<char, unsigned> puzzleMapping;
+
+    bool canBeSolved =
+        proj1::puzzleSolver("LARRYEE", "CAREERNC", "LEGENDAE", puzzleMapping);
+
+    REQUIRE_FALSE(canBeSolved);
+}
+
+TEST_CASE("Solver:WOSHISHABI-SHABISHIWO-APPLEAPPLE:ExpectNoSolution", "[Required][Solver]") {
+    std::unordered_map<char, unsigned> puzzleMapping;
+
+    bool canBeSolved =
+        proj1::puzzleSolver("WOSHISHABI", "SHABISHIWO", "APPLEAPPLE", puzzleMapping);
+
+    REQUIRE_FALSE(canBeSolved);
+}
+
+TEST_CASE("Solver:MLARRYEEC-CAREERNCM-LEGENDMAE:ExpectNoSolution", "[Required][Solver]") {
+    std::unordered_map<char, unsigned> puzzleMapping;
+
+    bool canBeSolved =
+        proj1::puzzleSolver("MLARRYEEC", "CAREERNCM", "LEGENDMAE", puzzleMapping);
+
+    REQUIRE_FALSE(canBeSolved);
+}
+
+
+TEST_CASE("Solver:ABCDFEIGJA-ABEGFHICJA-JIHGFEDCBAE:ExpectNoSolution", "[Required][Solver]") {
+    std::unordered_map<char, unsigned> puzzleMapping;
+
+    bool canBeSolved =
+        proj1::puzzleSolver("ABCDFEIGJA", "ABEGFHICJA", "JIHGFEDCBAE", puzzleMapping);
+
+    REQUIRE_FALSE(canBeSolved);
+}
+
+TEST_CASE("Solver:PAL-WORLD-WALDW:ExpectSolution", "[Required][Solver]") {
+    std::unordered_map<char, unsigned> puzzleMapping;
+
+    bool canBeSolved =
+        proj1::puzzleSolver("PAL", "WORLD", "WALDW", puzzleMapping);
+    CHECK(canBeSolved);
+    REQUIRE(gradeYesAnswer("PAL", "WORLD", "WALDW", puzzleMapping));
+}
+
+TEST_CASE("Solver:longTest", "[Customized][Solver]") {
+    const std::string ADDEND1 = "GYROSCOPE";
+    const std::string ADDEND2 = "GYROSCOPE";
+    const std::string SUM = "PRECISION";
+    std::unordered_map<char, unsigned> puzzleMapping;
+
+    bool canBeSolved =
+        proj1::puzzleSolver(ADDEND1, ADDEND2, SUM, puzzleMapping);
+
+    CHECK(canBeSolved);
+    REQUIRE(gradeYesAnswer(ADDEND1, ADDEND2, SUM, puzzleMapping));
+}
+
+TEST_CASE("Solver:10letters-10letters-10letters:ExpectNoSolution", "[Required][Solver]") {
+
+    std::unordered_map<char, unsigned> puzzleMapping;
+
+    bool canBeSolved = proj1::puzzleSolver("ABCDFEIGJA", "ABEGFHICJA", "JIHGFEDCBA", puzzleMapping);
+
+    REQUIRE_FALSE(canBeSolved);
+}
 }  // namespace
